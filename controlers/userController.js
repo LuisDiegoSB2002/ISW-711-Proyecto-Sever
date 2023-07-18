@@ -2,6 +2,8 @@ const User = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secretKey = 'mysecretkey';
+const express = require('express');
+
 
 const register = async (req, res) => {
     const { name, email, password } = req.body;
@@ -50,8 +52,12 @@ const register = async (req, res) => {
   
       // Generar un token JWT con la información del usuario
       const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
+      res.cookie("Token:"+ token);
+      res.json ({
+        message: "Validacón completada...."
+      });
   
-      res.status(200).json({ token });
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Error al iniciar sesión' });
