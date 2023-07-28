@@ -8,7 +8,6 @@ const express = require('express');
 const register = async (req, res) => {
     const { name, email, password } = req.body;
     
-  
     try {
       // Verificar si ya existe un usuario con el mismo correo electrónico
       const existingUser = await User.findOne({ email });
@@ -52,9 +51,11 @@ const register = async (req, res) => {
   
       // Generar un token JWT con la información del usuario
       const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
-      res.cookie("Token:"+ token);
+      
       res.json ({
-        message: "Validacón completada...."
+        message: "Validacón completada....",
+        token : token,
+        name : user.name
       });
   
       
