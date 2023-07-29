@@ -1,8 +1,11 @@
 const secretKey = 'mysecretkey';
+const jwt = require('jsonwebtoken');
 
-const session = async (req, res, next) => {
+const Session = async (req, res, next) => {
     if (req.headers["authorization"]) {
+      
       const authToken = req.headers['authorization'].split(' ')[1];
+      
       try {
         jwt.verify(authToken, secretKey, (err, decodedToken) => {
           if (err || !decodedToken) {
@@ -16,6 +19,7 @@ const session = async (req, res, next) => {
         });
       } catch (e) {
         res.status(401);
+        console.log(e);
         res.send({
           error: "Unauthorized "
         });
@@ -27,4 +31,4 @@ const session = async (req, res, next) => {
       });
     }
   };
-  module.exports = {register};
+  module.exports = {Session};
