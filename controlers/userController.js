@@ -83,7 +83,9 @@ const register = async (req, res) => {
       res.json ({
         message: "Validacón completada....",
         token : token,
-        name : user.name
+        name : user.name,
+        role: user.role
+
       });
   
       
@@ -101,7 +103,7 @@ const register = async (req, res) => {
   };
 
   const edit = async (req, res) => {
-    console.log("hello");
+    
     const userId = req.params.id;
     const { name, email, password } = req.body;
   
@@ -165,4 +167,23 @@ const register = async (req, res) => {
     
     
   }
-  module.exports = {register, obtener, login,checkAdminRole,edit,deleteUser};
+  const obtenerXId = async (req, res) => {
+    const userId = req.params.id;
+
+  try {
+    // Obtener el usuario de la base de datos por su ID
+    const user = await User.findById(userId, '-password'); // Excluir el campo de contraseña de la respuesta
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener el usuario por su ID' });
+  }
+    
+    
+  }
+  module.exports = {register, obtener, login,checkAdminRole,edit,deleteUser,createNewUser,obtenerXId};
