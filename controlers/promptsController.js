@@ -94,16 +94,15 @@ const express = require('express');
   const obtenerPrompts = async (req, res) => { 
     try {
       // Obtener todos los usuarios de la base de datos
-      const users = await User.find({}, '-password'); // Excluir el campo de contraseña de la respuesta
+      const prompts = await Prompts.find({});
   
-      res.status(200).json(users);
+      res.status(200).json(prompts);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Error al obtener los usuarios' });
+      res.status(500).json({ error: 'Error al obtener los prompts' });
     }
-    
-    
   }
+
   const obtenerXId = async (req, res) => {
     const userId = req.params.id;
 
@@ -123,4 +122,4 @@ const express = require('express');
     
     
   }
-  module.exports = {createNewPrompts,editPrompts,deletePrompts};
+  module.exports = {createNewPrompts,editPrompts,deletePrompts,obtenerPrompts};
