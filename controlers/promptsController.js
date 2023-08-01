@@ -7,7 +7,7 @@ const express = require('express');
 
 
 
-  const createNewPrompts = async (req, res) => {
+  const createPrompts = async (req, res) => {
     const { name, tipo, idUser , etiquetas } = req.body;
     
     try {
@@ -122,4 +122,4 @@ const express = require('express');
     
     
   }
-  module.exports = {createNewPrompts,editPrompts,deletePrompts,obtenerPrompts};
+  module.exports = {createPrompts,editPrompts,deletePrompts,obtenerPrompts};

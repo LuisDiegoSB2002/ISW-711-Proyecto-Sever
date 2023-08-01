@@ -7,7 +7,7 @@ const app = express();
 const port = 3001;
 const { register, obtener, login, checkAdminRole, edit, deleteUser,createNewUser, obtenerXId } = require("./controlers/userController");
 const {Session} = require ("./controlers/sessionController");
-const {obtenerPrompts,createNewPrompts,editPrompts,deletePrompts} = require("./controlers/promptsController");
+const {obtenerPrompts,createPrompts,editPrompts,deletePrompts} = require("./controlers/promptsController");
 
 mongoose.connect('mongodb://127.0.0.1:27017/proyecto', {
   useNewUrlParser: true,
@@ -40,7 +40,7 @@ app.get('/obtenerXId/:id', obtenerXId);
 
 //Request de los Prompts
 app.get('/obtenerPrompts', obtenerPrompts);
-app.post('/createNewPrompts', createNewPrompts);
+app.post('/createPrompts', createPrompts);
 app.put('/editPrompts/:id', editPrompts);
 app.delete('/deletePrompts/:id', deletePrompts);
 
