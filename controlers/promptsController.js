@@ -103,23 +103,23 @@ const express = require('express');
     }
   }
 
-  const obtenerXId = async (req, res) => {
-    const userId = req.params.id;
+  const obtenerPromptsXId = async (req, res) => {
+    const promptsId = req.params.id;
 
   try {
     // Obtener el usuario de la base de datos por su ID
-    const user = await User.findById(userId, '-password'); // Excluir el campo de contraseña de la respuesta
+    const prompts = await Prompts.findById(promptsId);
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+    if (!prompts) {
+      return res.status(404).json({ error: 'Prompts no encontrado' });
     }
 
-    res.status(200).json(user);
+    res.status(200).json(prompts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener el usuario por su ID' });
+    res.status(500).json({ error: 'Error al obtener el Prompts por su ID' });
   }
     
     
   }
-  module.exports = {createPrompts,editPrompts,deletePrompts,obtenerPrompts};
+  module.exports = {createPrompts,editPrompts,deletePrompts,obtenerPrompts,obtenerPromptsXId};

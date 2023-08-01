@@ -7,7 +7,7 @@ const app = express();
 const port = 3001;
 const { register, obtener, login, checkAdminRole, edit, deleteUser,createNewUser, obtenerXId } = require("./controlers/userController");
 const {Session} = require ("./controlers/sessionController");
-const {obtenerPrompts,createPrompts,editPrompts,deletePrompts} = require("./controlers/promptsController");
+const {obtenerPrompts,createPrompts,editPrompts,deletePrompts,obtenerPromptsXId} = require("./controlers/promptsController");
 
 mongoose.connect('mongodb://127.0.0.1:27017/proyecto', {
   useNewUrlParser: true,
@@ -30,9 +30,9 @@ app.post('/login', login);
 
 app.put('/editUser/:id', edit );
 
-app.delete('/deleteUser/:id', deleteUser );
+app.delete('/deleteUser/:id',Session, deleteUser );
 
-app.get('/deleteUser/:id', deleteUser );
+app.get('/deleteUser/:id', Session, deleteUser );
 
 app.get('/obtenerXId/:id', obtenerXId);
 
@@ -40,10 +40,10 @@ app.get('/obtenerXId/:id', obtenerXId);
 
 //Request de los Prompts
 app.get('/obtenerPrompts', obtenerPrompts);
-app.post('/createPrompts', createPrompts);
-app.put('/editPrompts/:id', editPrompts);
-app.delete('/deletePrompts/:id', deletePrompts);
-
+app.post('/createPrompts', createPrompts); 
+app.put('/editPrompts/:id',Session, editPrompts);
+app.delete('/deletePrompts/:id',Session, deletePrompts);
+app.get('/obtenerPromptsXId/:id', obtenerPromptsXId);
 
 
 
